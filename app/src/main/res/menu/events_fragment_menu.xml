@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/ew_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_appbar_search"
+        android:orderInCategory="1"
+        android:title="@string/menu_event_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/event_filter_show_all"
+            android:checked="true"
+            android:title="@string/menu_event_all" />
+        <item
+            android:id="@+id/event_filter_interested"
+            android:title="@string/menu_event_interested" />
+        <item
+            android:id="@+id/event_filter_going"
+            android:title="@string/menu_event_going" />
+    </group>
+</menu>
