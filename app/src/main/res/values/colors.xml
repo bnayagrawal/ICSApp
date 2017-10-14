@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/blue_theme</color>
-    <color name="colorPrimaryDark">@color/blue_theme_dark_2</color>
-    <color name="colorAccent">@color/blue_theme_accent</color>
+    <color name="colorPrimary">@color/purpleDark_theme</color>
+    <color name="colorPrimaryDark">@color/purpleDark_theme_dark_2</color>
+    <color name="colorPrimaryDarkest">@color/purpleDark_theme_dark_4</color>
+    <color name="colorAccent">@color/purpleDark_theme_accent</color>
 
     <!-- color shades blue -->
     <color name="blue_theme_light_5">#f2f9fe</color>
@@ -17,6 +18,48 @@
     <color name="blue_theme_dark_3">#0a69b7</color>
     <color name="blue_theme_dark_4">#085a9d</color>
     <color name="blue_theme_dark_5">#074b83</color>
+
+    <!-- color shades purpleDark -->
+    <color name="purpleDark_theme_light_5">#f5f0f5</color>
+    <color name="purpleDark_theme_light_4">#dccddc</color>
+    <color name="purpleDark_theme_light_3">#ba9bba</color>
+    <color name="purpleDark_theme_light_2">#976997</color>
+    <color name="purpleDark_theme_light_1">#654665</color>
+    <color name="purpleDark_theme">#322332</color>
+    <color name="purpleDark_theme_accent">#de6262</color>
+    <color name="purpleDark_theme_dark_1">#2e202e</color>
+    <color name="purpleDark_theme_dark_2">#291c29</color>
+    <color name="purpleDark_theme_dark_3">#241924</color>
+    <color name="purpleDark_theme_dark_4">#1f151f</color>
+    <color name="purpleDark_theme_dark_5">#1a121a</color>
+
+    <!-- color shades darkPink -->
+    <color name="darkPink_theme">#d85d7e</color>
+    <color name="darkPink_theme_l5">#fdf5f7</color>
+    <color name="darkPink_theme_l4">#f7dfe5</color>
+    <color name="darkPink_theme_l3">#efbfcc</color>
+    <color name="darkPink_theme_l2">#e89fb2</color>
+    <color name="darkPink_theme_l1">#e07f99</color>
+    <color name="darkPink_theme_d1">#d2466b</color>
+    <color name="darkPink_theme_d2">#c83159</color>
+    <color name="darkPink_theme_d3">#af2a4e</color>
+    <color name="darkPink_theme_d4">#962443</color>
+    <color name="darkPink_theme_d5">#7d1e38</color>
+    <color name="darkPink_theme_accent">#8290AF</color>
+
+    <!-- color shades deepPurple -->
+    <color name="deepPurple_theme">#420360</color>
+    <color name="deepPurple_theme_l5">#f7e7fe</color>
+    <color name="deepPurple_theme_l4">#e4affd</color>
+    <color name="deepPurple_theme_l3">#c95ffa</color>
+    <color name="deepPurple_theme_l2">#ae0ff8</color>
+    <color name="deepPurple_theme_l1">#7905ae</color>
+    <color name="deepPurple_theme_d1">#3b0355</color>
+    <color name="deepPurple_theme_d2">#34024b</color>
+    <color name="deepPurple_theme_d3">#2e0242</color>
+    <color name="deepPurple_theme_d4">#270238</color>
+    <color name="deepPurple_theme_d5">#21012f</color>
+    <color name="deepPurple_theme_accent">#FFC107</color>
 
     <!-- Other colors for layout -->
     <color name="divider">#DCDCDC</color>
