@@ -15,6 +15,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -75,9 +76,9 @@ public class TabFragmentEvent extends Fragment {
 
         String default_image = String.valueOf(R.drawable.image_event_default);
 
-        ed.add(new EventData("Ethnic Day",default_image,smalDec[0],new Date("12/05/2017"),56,18,new Date("12/05/2017"),"Karkala"));
-        ed.add(new EventData("Teachers Day",default_image,smalDec[1],new Date("12/05/2017"),32,22,new Date("12/05/2017"),"Tirthali"));
-        ed.add(new EventData("Freshers Party",default_image,smalDec[2],new Date("12/05/2017"),16,12,new Date("12/05/2017"),"Padubidri"));
+        ed.add(new EventData("Ethnic Day",default_image,smalDec[0],Calendar.getInstance().getTime(),56,18, Calendar.getInstance().getTime(),"Karkala"));
+        ed.add(new EventData("Teachers Day",default_image,smalDec[1],Calendar.getInstance().getTime(),32,22,Calendar.getInstance().getTime(),"Tirthali"));
+        ed.add(new EventData("Freshers Party",default_image,smalDec[2],Calendar.getInstance().getTime(),16,12,Calendar.getInstance().getTime(),"Padubidri"));
 
         adapter = new EventRecyclerAdapter(getActivity(),ed);
 

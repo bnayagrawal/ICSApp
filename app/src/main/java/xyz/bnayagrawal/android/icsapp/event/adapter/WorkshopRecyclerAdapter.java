@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -57,9 +59,16 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
 
         viewHolder.itemTitle.setText(eds.getTitle());
         viewHolder.itemDetail.setText(shortDesc + "...");
-        viewHolder.dates.setText(eds.getNotification_date().toString());
+        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getNotification_date()));
         viewHolder.interested.setText(eds.getPeoples_interested() + " Intersted");
         viewHolder.going.setText(eds.getPeoples_going() + " Going");
+
+        //if last card then set bottom margin
+        if(position == ed.size() - 1) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) viewHolder.card.getLayoutParams();
+            params.bottomMargin = (int)(8 * context.getResources().getDisplayMetrics().density);
+            viewHolder.card.setLayoutParams(params);
+        }
 
         //Set some properties of imageview (used to display event image)
         viewHolder.itemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -106,6 +115,7 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
         public TextView dates;
         public TextView view;
         public ProgressBar imageLoadProgress;
+        public View card;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -117,6 +127,7 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
             going = (TextView)itemView.findViewById(R.id.textViewGoing);
             view = (TextView)itemView.findViewById(R.id.textViewView);
             imageLoadProgress = (ProgressBar) itemView.findViewById(R.id.imageLoadProgress);
+            card = itemView;
 
             //add onClick listener to view
             view.setOnClickListener(new View.OnClickListener() {

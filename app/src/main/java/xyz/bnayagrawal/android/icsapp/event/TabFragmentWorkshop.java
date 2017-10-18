@@ -16,6 +16,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -58,7 +59,7 @@ public class TabFragmentWorkshop extends Fragment {
                 // currently adds dummy data
                 ed.remove(0);
                 adapter.notifyItemRemoved(0);
-                ed.add(0,new EventData("Fakathon","","blablablablba",new Date("12/05/2017"),56,18,new Date("12/05/2017"),"Karkala"));
+                ed.add(0,new EventData("Fakathon","","blablablablba",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
                 adapter.notifyItemInserted(0);
                 SwipeRefreshWorkshops.setRefreshing(false);
             }
@@ -73,8 +74,8 @@ public class TabFragmentWorkshop extends Fragment {
         ed = new ArrayList<>();
         String default_image = String.valueOf(R.drawable.image_event_default);
         String desc = "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ";
-        ed.add(new EventData("Android",default_image,"blablablabla",new Date("12/05/2017"),56,18,new Date("12/05/2017"),"Karkala"));
-        ed.add(new EventData("Firebase",default_image,"blablablabla",new Date("12/05/2017"),56,18,new Date("12/05/2017"),"Karkala"));
+        ed.add(new EventData("Android",default_image,"blablablabla", Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
+        ed.add(new EventData("Firebase",default_image,"blablablabla",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
 
         adapter = new WorkshopRecyclerAdapter(getActivity(),ed);
 

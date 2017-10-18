@@ -2,6 +2,7 @@ package xyz.bnayagrawal.android.icsapp.event.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -65,16 +67,23 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         viewHolder.itemTitle.setText(eds.getTitle());
         viewHolder.itemDetail.setText(shortDesc.trim() + "...");
-        viewHolder.dates.setText(eds.getNotification_date().toString());
+        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getNotification_date()));
         viewHolder.interested.setText(eds.getPeoples_interested() + " Intersted");
         viewHolder.going.setText(eds.getPeoples_going() + " Going");
+
+        //if last card then set bottom margin
+        if(position == ed.size() - 1) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) viewHolder.card.getLayoutParams();
+            params.bottomMargin = (int)(8 * context.getResources().getDisplayMetrics().density);
+            viewHolder.card.setLayoutParams(params);
+        }
 
         //Set some properties of imageview (used to display event image)
         viewHolder.itemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         //Picasso image loading and caching framework
         //TODO: Change to string for url.
-        Picasso.with(context).load(R.drawable.image_event_default).resize(640,480).centerCrop().into(viewHolder.itemImage,new Callback(){
+        Picasso.with(context).load(R.drawable.image_event_default).resize(640,420).centerCrop().into(viewHolder.itemImage,new Callback(){
             @Override
             public void onSuccess() {
                 //hide the progress bar
@@ -90,7 +99,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             public void onError() {
                 viewHolder.imageLoadProgress.setVisibility(View.GONE);
                 viewHolder.itemImage.setVisibility(View.VISIBLE);
-                Picasso.with(context).load(R.drawable.image_event_default).resize(640,480).centerCrop().into(viewHolder.itemImage);
+                Picasso.with(context).load(R.drawable.image_event_default).resize(640,420).centerCrop().into(viewHolder.itemImage);
 
                 //animation using xml resource
                 Animation image_scale = AnimationUtils.loadAnimation(context, R.anim.image_scale_anim);
@@ -130,6 +139,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         public TextView dates;
         public TextView view;
         public ProgressBar imageLoadProgress;
+        public RecyclerView.LayoutParams lp;
+        public View card;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +152,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             going = (TextView)itemView.findViewById(R.id.textViewGoing);
             view = (TextView)itemView.findViewById(R.id.textViewView);
             imageLoadProgress = (ProgressBar) itemView.findViewById(R.id.imageLoadProgress);
+            card = itemView;
 
             //add onClick listener to view
             view.setOnClickListener(new View.OnClickListener() {
