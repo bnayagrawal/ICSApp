@@ -144,14 +144,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemImage = (ImageView)itemView.findViewById(R.id.imageViewEvent);
-            itemTitle = (TextView)itemView.findViewById(R.id.textViewEventLabel);
-            itemDetail = (TextView)itemView.findViewById(R.id.textViewEventShortDesc);
-            dates = (TextView)itemView.findViewById(R.id.textViewTime);
-            interested = (TextView)itemView.findViewById(R.id.textViewInterested);
-            going = (TextView)itemView.findViewById(R.id.textViewGoing);
-            view = (TextView)itemView.findViewById(R.id.textViewView);
-            imageLoadProgress = (ProgressBar) itemView.findViewById(R.id.imageLoadProgress);
+            itemImage = itemView.findViewById(R.id.imageViewEvent);
+            itemTitle = itemView.findViewById(R.id.textViewEventLabel);
+            itemDetail = itemView.findViewById(R.id.textViewEventShortDesc);
+            dates = itemView.findViewById(R.id.textViewTime);
+            interested = itemView.findViewById(R.id.textViewInterested);
+            going = itemView.findViewById(R.id.textViewGoing);
+            view = itemView.findViewById(R.id.textViewView);
+            imageLoadProgress = itemView.findViewById(R.id.imageLoadProgress);
             card = itemView;
 
             //add onClick listener to view

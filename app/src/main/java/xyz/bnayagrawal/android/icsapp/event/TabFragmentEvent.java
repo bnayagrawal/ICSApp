@@ -1,5 +1,6 @@
 package xyz.bnayagrawal.android.icsapp.event;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

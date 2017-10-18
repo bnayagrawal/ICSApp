@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity implements iNetCallback {
                         }
                     }
                 } catch (JSONException je) {
-                    Toast.makeText(getApplicationContext(), "Error parsing data! Contact the developer.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                 }
             }
         } else {

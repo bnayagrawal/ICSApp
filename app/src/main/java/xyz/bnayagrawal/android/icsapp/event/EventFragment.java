@@ -3,6 +3,7 @@ package xyz.bnayagrawal.android.icsapp.event;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import xyz.bnayagrawal.android.icsapp.MainActivity;
 import xyz.bnayagrawal.android.icsapp.R;
