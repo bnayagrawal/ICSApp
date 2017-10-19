@@ -89,7 +89,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:orientation="vertical"
-        app:cardBackgroundColor="@color/colorPrimaryDarkest"
         app:contentPadding="28dp">
 
         <LinearLayout

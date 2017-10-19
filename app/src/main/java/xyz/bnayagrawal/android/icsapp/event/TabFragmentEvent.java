@@ -2,6 +2,7 @@ package xyz.bnayagrawal.android.icsapp.event;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -65,8 +66,15 @@ public class TabFragmentEvent extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        //custom recycler item animation by wasabeef(github)
+        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
+        animator.setChangeDuration(300);
+        animator.setAddDuration(300);
+        animator.setRemoveDuration(300);
+        recyclerView.setItemAnimator(animator);
+
         //Some dummy event data
-        List<EventData> ed = new ArrayList<>();
+        ArrayList<EventData> ed = new ArrayList<>();
 
         //Dummy description
         String[] smalDec = {
@@ -82,13 +90,7 @@ public class TabFragmentEvent extends Fragment {
         ed.add(new EventData("Freshers Party",default_image,smalDec[2],Calendar.getInstance().getTime(),16,12,Calendar.getInstance().getTime(),"Padubidri"));
 
         adapter = new EventRecyclerAdapter(getActivity(),ed);
-
-        //custom recycler item animation by wasabeef(github)
-        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
-        animator.setChangeDuration(500);
-        animator.setAddDuration(500);
-        animator.setRemoveDuration(500);
-        recyclerView.setItemAnimator(animator);
+        //new EventDataInitializer().execute(ed);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -123,6 +125,30 @@ public class TabFragmentEvent extends Fragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class EventDataInitializer extends AsyncTask<ArrayList<EventData>,Integer,Object>{
+        @Override
+        protected Object doInBackground(ArrayList<EventData>... objects) {
+            //Some dummy event data
+            List<EventData> ed = objects[0];
+
+            //Dummy description
+            String[] smalDec = {
+                    "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ",
+                    "Teachers' Day is a special day for the appreciation of teachers, and may include celebrations to honor them for their special contributions in a particular field area, or the community in general.",
+                    "The Freshers' Party was a night filled with talent, music, excitement and enthusiasm. Every year on Freshers' Party a boy and a girl from each stream is nominated for the prestigious title of Mr. & Ms. Fresher and for that they have to go through 3 rounds of different competitions."
+            };
+
+            String default_image = String.valueOf(R.drawable.image_event_default);
+
+            ed.add(new EventData("Ethnic Day",default_image,smalDec[0],Calendar.getInstance().getTime(),56,18, Calendar.getInstance().getTime(),"Karkala"));
+            ed.add(new EventData("Teachers Day",default_image,smalDec[1],Calendar.getInstance().getTime(),32,22,Calendar.getInstance().getTime(),"Tirthali"));
+            ed.add(new EventData("Freshers Party",default_image,smalDec[2],Calendar.getInstance().getTime(),16,12,Calendar.getInstance().getTime(),"Padubidri"));
+
+            adapter.notifyDataSetChanged();
+            return null;
         }
     }
 }

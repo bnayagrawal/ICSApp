@@ -2,7 +2,6 @@
 <resources>
     <color name="colorPrimary">@color/purpleDark_theme</color>
     <color name="colorPrimaryDark">@color/purpleDark_theme_d2</color>
-    <color name="colorPrimaryDarkest">@color/purpleDark_theme_d4</color>
     <color name="colorAccent">@color/purpleDark_theme_accent</color>
 
     <!-- color shades snorkelBlue -->

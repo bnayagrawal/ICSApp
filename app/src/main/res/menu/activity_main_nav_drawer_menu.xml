@@ -16,7 +16,7 @@
             android:title="Notice Board" />
         <item
             android:id="@+id/nav_events"
-            android:icon="@drawable/ic_event"
+            android:icon="@drawable/ic_calendar"
             android:title="Events" />
         <item
             android:id="@+id/nav_news"

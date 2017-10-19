@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +15,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +28,15 @@ import xyz.bnayagrawal.android.icsapp.event.EventFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int accentColor;
+    private int primaryColor;
+    private int primaryColorDark;
+
     private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateUserThemePreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
@@ -194,6 +203,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_dashboard);
         navigationView.setItemIconTintList(null);
+
+        /* SET NAV_HEADER_BACKGROUND_COLOR */
+        if(primaryColor != -1)
+            ((LinearLayout)navigationView.getHeaderView(0).findViewById(R.id.nav_header_content)).setBackgroundColor(primaryColor);
     }
 
     public void setToolbar() {
@@ -207,6 +220,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             drawer.setDrawerListener(null);
         }
+    }
+
+    private void updateUserThemePreferences() {
+        /* TODO: SET USER THEME */
+        setTheme(R.style.AppThemeDarkGray);
+
+        /* Fetch currently applied theme colors */
+        TypedValue typedValue = new TypedValue();
+        TypedArray array = this.obtainStyledAttributes(
+                typedValue.data, new int[] {
+                        R.attr.colorAccent,
+                        R.attr.colorPrimary,
+                        R.attr.colorPrimaryDark
+                });
+
+        /* -1 ON FAILURE */
+        accentColor = array.getColor(0, -1);
+        primaryColor = array.getColor(1,-1);
+        primaryColorDark = array.getColor(2,-1);
+        array.recycle();
     }
 
     /* call to below method will set the dashboard fragment*/
