@@ -22,9 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/AppThemeNoActionBar" android:screenOrientation="portrait"/>
-        <activity android:name=".event.EventDetailActivity" android:theme="@style/AppThemeNoActionBar"/>
-        <activity android:name=".event.EventSearchResultActivity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".event.EventDetailActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity android:name=".event.EventSearchResultActivity" />
     </application>
 
 </manifest>
