@@ -27,7 +27,6 @@
 
     <!-- Light upper case font with letter spacing for navigation drawer icons -->
     <style name="navDrawerMenuText">
-        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:letterSpacing">0.2</item>
         <item name="android:textAllCaps">true</item>
     </style>

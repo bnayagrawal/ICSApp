@@ -1,6 +1,7 @@
 package xyz.bnayagrawal.android.icsapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -28,15 +30,15 @@ import xyz.bnayagrawal.android.icsapp.event.EventFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private int accentColor;
-    private int primaryColor;
-    private int primaryColorDark;
+    private int accentColor = -1;
+    private int primaryColor = -1;
+    private int primaryColorDark = -1;
 
     private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateUserThemePreferences();
+        //updateUserThemePreferences();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
@@ -189,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 break;
             case R.id.nav_logout:
+                logout();
                 break;
             default:
                 break;
@@ -196,6 +199,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /* Logout */
+    private void logout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setPositiveButton(R.string.action_logout_logout, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                getApplicationContext().getSharedPreferences(getString(R.string.SP_USER_FILE),Context.MODE_PRIVATE).edit().clear().apply();
+                Toast.makeText(getApplicationContext(), "You are logged out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton(R.string.action_logout_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        builder.setTitle(getString(R.string.action_logout_title));
+        builder.setMessage(getString(R.string.action_logout_content));
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void setNavigationView() {

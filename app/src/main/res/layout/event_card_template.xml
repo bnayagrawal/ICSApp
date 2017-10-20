@@ -4,8 +4,8 @@
     android:id="@+id/event_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:layout_marginTop="8dp"
     android:background="@color/layout_background"
     android:clickable="true"
@@ -21,7 +21,10 @@
             android:id="@+id/textViewEventLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="8dp"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintHorizontal_bias="0.025"
@@ -42,6 +45,8 @@
             android:id="@+id/imageViewEvent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:adjustViewBounds="true"
             android:maxHeight="256dp"
             android:minHeight="160dp"
@@ -117,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6dp"
+                android:textColor="@color/grayText"
                 android:layout_toEndOf="@+id/imageViewThumbsUp" />
 
             <LinearLayout
@@ -135,6 +141,7 @@
                     android:id="@+id/textViewGoing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/grayText"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="6dp" />
             </LinearLayout>
@@ -154,6 +161,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6dp"
                 android:clickable="true"
+                android:textColor="@color/grayText"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="@string/card_template_view_event" />
         </RelativeLayout>

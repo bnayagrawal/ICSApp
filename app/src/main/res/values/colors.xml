@@ -79,4 +79,5 @@
     <color name="layout_background">#DFDFDF</color>
     <color name="dark_grey">#969696</color>
     <color name="hintTextColor">#717171</color>
+    <color name="grayText">#616161</color>
 </resources>
