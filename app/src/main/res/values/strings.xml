@@ -52,4 +52,21 @@
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Settings [Preferences] -->
+    <string name="pref_group_general">General</string>
+
+    <string name="pref_group_appearance">Apperance</string>
+    <string name="pref_appearance_theme_title">Application theme</string>
+    <string name="pref_appearance_theme_summary">Purpe Dark</string>
+    <string name="pref_appearance_dark_mode_tilte">Dark mode</string>
+    <string name="pref_appearance_dark_mode_summary">Overal application dark theme</string>
+
+    <string name="pref_group_notifications">Notifications</string>
+    <string name="pref_notifications_send_title">Send notifications</string>
+    <string name="pref_notifications_send_summary">Send notifications when new event,notice or announcement arrives</string>
+    <string name="pref_notifications_sound_title">Sound</string>
+    <string name="pref_notifications_sound_summary">Device default</string>
+
+    <string name="pref_group_network_usage">Network usage</string>
 </resources>

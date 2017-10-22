@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements iNetCallback {
     public void netUpdateResult(String result) {
         if (result != null) {
             if (result.equals("HTTP error code: 403")) {
-                Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Internal server error", Toast.LENGTH_SHORT).show();
             } else {
                 //parse json data
                 try {
