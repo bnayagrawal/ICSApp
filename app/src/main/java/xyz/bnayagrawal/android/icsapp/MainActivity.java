@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int accentColor = -1;
     private int primaryColor = -1;
     private int primaryColorDark = -1;
+    private int menu_selected_item_id;
 
     private NavigationView navigationView;
 
@@ -141,65 +143,68 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        menu_selected_item_id = item.getItemId();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        switch (id) {
-            case R.id.nav_dashboard: {
-                //check if it the fragment is already being display
-                DashboardFragment tf = (DashboardFragment) getSupportFragmentManager().findFragmentByTag("DASHBOARD_FRAGMENT");
-                if (tf != null && tf.isVisible())
-                    break;
-                else {
-                    //setting this fragment will clear backstack.
-                    int count = getSupportFragmentManager().getBackStackEntryCount();
-                    for (int i = 0; i < count; ++i) {
-                        getSupportFragmentManager().popBackStackImmediate();
-                    }
-                    Toast.makeText(this, "Press back button once again to exit!", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                switch (menu_selected_item_id) {
+                    case R.id.nav_dashboard: {
+                        //check if it the fragment is already being display
+                        DashboardFragment tf = (DashboardFragment) getSupportFragmentManager().findFragmentByTag("DASHBOARD_FRAGMENT");
+                        if (tf != null && tf.isVisible())
+                            break;
+                        else {
+                            //setting this fragment will clear backstack.
+                            int count = getSupportFragmentManager().getBackStackEntryCount();
+                            for (int i = 0; i < count; ++i) {
+                                getSupportFragmentManager().popBackStackImmediate();
+                            }
+                            Toast.makeText(getApplicationContext(), "Press back button once again to exit!", Toast.LENGTH_SHORT).show();
 
-                    //create the fragment
-                    drawer.closeDrawer(GravityCompat.START);
-                    DashboardFragment fragment = new DashboardFragment();
-                    fragment.setArguments(getIntent().getExtras());
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    ft.replace(R.id.fragment_container, fragment, "DASHBOARD_FRAGMENT").commit();
+                            //create the fragment
+                            DashboardFragment fragment = new DashboardFragment();
+                            fragment.setArguments(getIntent().getExtras());
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                            ft.replace(R.id.fragment_container, fragment, "DASHBOARD_FRAGMENT").commit();
+                        }
+                        break;
+                    }
+                    case R.id.nav_anouncements:
+                        break;
+                    case R.id.nav_assignments:
+                        break;
+                    case R.id.nav_notice:
+                        break;
+                    case R.id.nav_events: {
+                        //check if the fragment is already being display
+                        EventFragment tf = (EventFragment) getSupportFragmentManager().findFragmentByTag("EVENTS_FRAGMENT");
+                        if (tf != null && tf.isVisible())
+                            break; //means this fragment is currently being displayed
+                        else {
+                            EventFragment fragment = new EventFragment();
+                            fragment.setArguments(getIntent().getExtras());
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                            ft.replace(R.id.fragment_container, fragment, "EVENTS_FRAGMENT").addToBackStack("EVENTS_FRAGMENT").commit();
+                        }
+                        break;
+                    }
+                    case R.id.nav_news:
+                        break;
+                    case R.id.nav_settings:
+                        Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_logout:
+                        logout();
+                        break;
+                    default:
+                        break;
                 }
-                break;
             }
-            case R.id.nav_anouncements:
-                break;
-            case R.id.nav_assignments:
-                break;
-            case R.id.nav_notice:
-                break;
-            case R.id.nav_events: {
-                //check if the fragment is already being display
-                EventFragment tf = (EventFragment) getSupportFragmentManager().findFragmentByTag("EVENTS_FRAGMENT");
-                if (tf != null && tf.isVisible())
-                    break; //means this fragment is currently being displayed
-                else {
-                    drawer.closeDrawer(GravityCompat.START);
-                    EventFragment fragment = new EventFragment();
-                    fragment.setArguments(getIntent().getExtras());
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    ft.replace(R.id.fragment_container, fragment, "EVENTS_FRAGMENT").addToBackStack("EVENTS_FRAGMENT").commit();
-                }
-                break;
-            }
-            case R.id.nav_news:
-                break;
-            case R.id.nav_settings:
-                Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_logout:
-                logout();
-                break;
-            default:
-                break;
-        }
+        },300); //Perform operation after the drawer has closed properly
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -247,11 +252,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                    // To perform an action only after the drawer is closed
+                }
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    // No use so far
+                }
+            };
+            drawer.addDrawerListener(toggle);
             toggle.syncState();
         } else {
-            drawer.setDrawerListener(null);
+            drawer.addDrawerListener(null);
         }
     }
 
@@ -298,5 +312,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
-
 }
