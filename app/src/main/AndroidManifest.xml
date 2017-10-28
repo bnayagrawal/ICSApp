@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:theme="@style/lushMedow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +24,12 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoActionBar" />
+            android:theme="@style/lushMedow" />
         <activity
             android:name=".event.EventDetailActivity"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".event.EventSearchResultActivity">
+            android:theme="@style/lushMedow" />
+        <activity
+            android:name=".event.EventSearchResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -37,8 +38,11 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/event_searchable" />
         </activity>
-        <activity android:name=".SettingsActivity" android:label="Settings" android:launchMode="singleTask"
-            android:taskAffinity=""></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:launchMode="singleTask"
+            android:taskAffinity=""/>
     </application>
 
 </manifest>

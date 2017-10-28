@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- custom theme attributes -->
+    <attr name="primaryText" format="reference"/>
+    <attr name="secondaryText" format="reference"/>
+    <attr name="hintText" format="reference"/>
+    <attr name="drawableTint" format="reference"/>
+    <attr name="divider" format="reference"/>
+    <attr name="layoutBackground" format="reference"/>
+    <attr name="cardBackground" format="reference"/>
+    <attr name="contentHolderBackground" format="reference"/>
+</resources>

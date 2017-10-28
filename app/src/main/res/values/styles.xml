@@ -1,24 +1,71 @@
 <resources>
     <!-- Default application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/lushMedowPrimary</item>
+        <item name="colorPrimaryDark">@color/lushMedowPrimaryDark</item>
+        <item name="colorAccent">@color/lushMedowAccent</item>
+        <item name="primaryText">@color/primaryTextLight</item>
+        <item name="secondaryText">@color/secondaryTextLight</item>
+        <item name="hintText">@color/hintTextLight</item>
+        <item name="drawableTint">@color/drawableTintLight</item>
+        <item name="divider">@color/dividerLight</item>
+        <item name="layoutBackground">@android:color/white</item>
+        <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
+        <item name="cardBackground">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <!-- DarkGray theme -->
-    <style name="AppThemeDarkGray" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/darkGray_theme</item>
-        <item name="colorPrimaryDark">@color/darkGray_theme_d2</item>
-        <item name="colorAccent">@color/darkGray_theme_accent</item>
+    <!-- darkPurple Theme [Light with no action bar] -->
+    <style name="darkPurple" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/purpleDarkPrimary</item>
+        <item name="colorPrimaryDark">@color/purpleDarkPrimaryDark</item>
+        <item name="colorAccent">@color/purpleDarkAccent</item>
+        <item name="primaryText">@color/primaryTextLight</item>
+        <item name="secondaryText">@color/secondaryTextLight</item>
+        <item name="hintText">@color/hintTextLight</item>
+        <item name="drawableTint">@color/drawableTintLight</item>
+        <item name="layoutBackground">@android:color/white</item>
+        <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
+        <item name="cardBackground">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
+    <!-- DarkGray Theme [Dark with no action bar] -->
+    <style name="DarkGray" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/darkGrayPrimary</item>
+        <item name="colorPrimaryDark">@color/darkGrayPrimaryDark</item>
+        <item name="colorAccent">@color/darkGrayAccent</item>
+        <item name="primaryText">@color/primaryTextDark</item>
+        <item name="secondaryText">@color/secondaryTextDark</item>
+        <item name="hintText">@color/hintTextDark</item>
+        <item name="drawableTint">@color/drawableTintDark</item>
+        <item name="divider">@color/dividerDark</item>
+        <item name="layoutBackground">@color/darkGrayDarkest</item>
+        <item name="contentHolderBackground">@color/darkGrayDarkest</item>
+        <item name="cardBackground">@color/darkGrayPrimaryDark</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
 
-    <!-- Theme with no action bar -->
-    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!-- lushMedow Theme [Dark with no action bar] -->
+    <style name="lushMedow" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/lushMedowPrimary</item>
+        <item name="colorPrimaryDark">@color/lushMedowPrimaryDark</item>
+        <item name="colorAccent">@color/lushMedowAccent</item>
+        <item name="primaryText">@color/primaryTextLight</item>
+        <item name="secondaryText">@color/secondaryTextLight</item>
+        <item name="hintText">@color/hintTextLight</item>
+        <item name="drawableTint">@color/drawableTintLight</item>
+        <item name="divider">@color/dividerLight</item>
+        <item name="layoutBackground">@android:color/white</item>
+        <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
+        <item name="cardBackground">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <!-- arrow button animation -->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
 
     <!-- Additional themes -->

@@ -7,9 +7,9 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:layout_marginTop="8dp"
-    android:background="@color/layout_background"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="?attr/cardBackground"
     app:cardCornerRadius="1dp">
 
     <android.support.constraint.ConstraintLayout
@@ -25,7 +25,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingBottom="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/primaryText"
             android:textSize="24sp"
             app:layout_constraintHorizontal_bias="0.025"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,7 +63,7 @@
             android:layout_margin="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/primaryText"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewEvent" />
@@ -74,7 +74,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_time"
-            android:tint="@color/dark_grey"
+            android:tint="?attr/secondaryText"
             app:layout_constraintLeft_toLeftOf="@+id/textViewEventShortDesc"
             app:layout_constraintTop_toBottomOf="@+id/textViewEventShortDesc" />
 
@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
+            android:textColor="?attr/secondaryText"
             app:layout_constraintLeft_toRightOf="@+id/imageViewTime"
             app:layout_constraintTop_toBottomOf="@+id/textViewEventShortDesc" />
 
@@ -92,7 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
-            android:background="@color/divider"
+            android:background="?attr/divider"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewTime" />
 
@@ -114,6 +115,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentStart="true"
+                android:tint="?attr/drawableTint"
                 android:src="@drawable/ic_thumb_up" />
 
             <TextView
@@ -122,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6dp"
-                android:textColor="@color/grayText"
+                android:textColor="?attr/secondaryText"
                 android:layout_toEndOf="@+id/imageViewThumbsUp" />
 
             <LinearLayout
@@ -135,13 +137,14 @@
                     android:id="@+id/imageViewGoing"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:tint="?attr/drawableTint"
                     android:src="@drawable/ic_going" />
 
                 <TextView
                     android:id="@+id/textViewGoing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grayText"
+                    android:textColor="?attr/secondaryText"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="6dp" />
             </LinearLayout>
@@ -151,6 +154,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_toStartOf="@+id/textViewView"
+                android:tint="?attr/drawableTint"
                 android:src="@drawable/ic_visibility" />
 
             <TextView
@@ -161,7 +165,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6dp"
                 android:clickable="true"
-                android:textColor="@color/grayText"
+                android:textColor="?attr/secondaryText"
                 android:foreground="?attr/selectableItemBackground"
                 android:text="@string/card_template_view_event" />
         </RelativeLayout>

@@ -16,7 +16,7 @@
             android:title="@string/nav_menu_notice_board" />
         <item
             android:id="@+id/nav_events"
-            android:icon="@drawable/ic_calendar"
+            android:icon="@drawable/ic_event"
             android:title="@string/nav_menu_events" />
         <item
             android:id="@+id/nav_news"

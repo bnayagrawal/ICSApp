@@ -1,13 +1,12 @@
 package xyz.bnayagrawal.android.icsapp;
 
-import android.app.NotificationManager;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -18,11 +17,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +29,7 @@ import android.widget.Toast;
 
 import xyz.bnayagrawal.android.icsapp.dashboard.DashboardFragment;
 import xyz.bnayagrawal.android.icsapp.event.EventFragment;
+import xyz.bnayagrawal.android.icsapp.notice.NoticeFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int primaryColorDark = -1;
     private int menu_selected_item_id;
 
+    protected boolean isHomeAsUp = false;
+    protected DrawerLayout drawer;
+    protected Toolbar toolbar;
+    protected ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
 
     @Override
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         /*If activity has been recreated due to screen rotation*/
-        if(savedInstanceState == null)
+        if (savedInstanceState == null)
             setFragment();
 
         setNavigationView();
@@ -166,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             DashboardFragment fragment = new DashboardFragment();
                             fragment.setArguments(getIntent().getExtras());
                             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                             ft.replace(R.id.fragment_container, fragment, "DASHBOARD_FRAGMENT").commit();
                         }
                         break;
@@ -175,8 +178,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
                     case R.id.nav_assignments:
                         break;
-                    case R.id.nav_notice:
+                    case R.id.nav_notice: {
+                        NoticeFragment nf = (NoticeFragment) getSupportFragmentManager().findFragmentByTag("NOTICE_FRAGMENT");
+                        if (nf != null && nf.isVisible())
+                            break; //means this fragment is currently being displayed
+                        else {
+                            NoticeFragment fragment = new NoticeFragment();
+                            fragment.setArguments(getIntent().getExtras());
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.fragment_container, fragment, "NOTICE_FRAGMENT").addToBackStack("NOTICE_FRAGMENT").commit();
+                        }
                         break;
+                    }
                     case R.id.nav_events: {
                         //check if the fragment is already being display
                         EventFragment tf = (EventFragment) getSupportFragmentManager().findFragmentByTag("EVENTS_FRAGMENT");
@@ -186,7 +199,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             EventFragment fragment = new EventFragment();
                             fragment.setArguments(getIntent().getExtras());
                             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                             ft.replace(R.id.fragment_container, fragment, "EVENTS_FRAGMENT").addToBackStack("EVENTS_FRAGMENT").commit();
                         }
                         break;
@@ -194,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.nav_news:
                         break;
                     case R.id.nav_settings:
-                        Intent intent = new Intent(getApplicationContext(),SettingsActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_logout:
@@ -204,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
                 }
             }
-        },300); //Perform operation after the drawer has closed properly
+        }, 350); //Perform operation after the drawer has closed properly
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -216,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         builder.setPositiveButton(R.string.action_logout_logout, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                getApplicationContext().getSharedPreferences(getString(R.string.SP_USER_FILE),Context.MODE_PRIVATE).edit().clear().apply();
+                getApplicationContext().getSharedPreferences(getString(R.string.SP_USER_FILE), Context.MODE_PRIVATE).edit().clear().apply();
                 Toast.makeText(getApplicationContext(), "You are logged out", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -225,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         builder.setNegativeButton(R.string.action_logout_cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+            public void onClick(DialogInterface dialog, int iad) {
 
             }
         });
@@ -243,20 +255,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemIconTintList(null);
 
         /* SET NAV_HEADER_BACKGROUND_COLOR */
-        if(primaryColor != -1)
-            ((LinearLayout)navigationView.getHeaderView(0).findViewById(R.id.nav_header_content)).setBackgroundColor(primaryColor);
+        if (primaryColor != -1)
+            ((LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.nav_header_content)).setBackgroundColor(primaryColor);
     }
 
-    public void setToolbar() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    public void setToolbar(int toolbar_id) {
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toolbar = (Toolbar) findViewById(toolbar_id);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
                 public void onDrawerClosed(View view) {
                     super.onDrawerClosed(view);
                     // To perform an action only after the drawer is closed
                 }
+
                 public void onDrawerOpened(View drawerView) {
                     super.onDrawerOpened(drawerView);
                     // No use so far
@@ -264,19 +277,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             };
             drawer.addDrawerListener(toggle);
             toggle.syncState();
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    } else if (isHomeAsUp) {
+                        onBackPressed();
+                    } else {
+                        drawer.openDrawer(GravityCompat.START);
+                    }
+                }
+            });
         } else {
             drawer.addDrawerListener(null);
         }
     }
 
+    /* Hamburger to arrow animation*/
+    public void setHomeAsUp(boolean isHomeAsUp) {
+        if (this.isHomeAsUp != isHomeAsUp) {
+            this.isHomeAsUp = isHomeAsUp;
+
+            ValueAnimator anim = isHomeAsUp ? ValueAnimator.ofFloat(0, 1) : ValueAnimator.ofFloat(1, 0);
+            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float slideOffset = (Float) valueAnimator.getAnimatedValue();
+                    toggle.onDrawerSlide(drawer, slideOffset);
+                }
+            });
+            anim.setInterpolator(new DecelerateInterpolator());
+            anim.setDuration(400);
+            anim.start();
+        }
+    }
+
     private void updateUserThemePreferences() {
         /* TODO: SET USER THEME */
-        setTheme(R.style.AppThemeDarkGray);
+        //setTheme(R.style.AppThemeDarkGray);
 
         /* Fetch currently applied theme colors */
         TypedValue typedValue = new TypedValue();
         TypedArray array = this.obtainStyledAttributes(
-                typedValue.data, new int[] {
+                typedValue.data, new int[]{
                         R.attr.colorAccent,
                         R.attr.colorPrimary,
                         R.attr.colorPrimaryDark
@@ -284,8 +329,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* -1 ON FAILURE */
         accentColor = array.getColor(0, -1);
-        primaryColor = array.getColor(1,-1);
-        primaryColorDark = array.getColor(2,-1);
+        primaryColor = array.getColor(1, -1);
+        primaryColorDark = array.getColor(2, -1);
         array.recycle();
     }
 
@@ -294,7 +339,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().popBackStackImmediate();
         DashboardFragment fragment = new DashboardFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.replace(R.id.fragment_container, fragment, "DASHBOARD_FRAGMENT").commit();
 
         getSupportFragmentManager().addOnBackStackChangedListener(
@@ -307,7 +351,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         EventFragment fe = (EventFragment) getSupportFragmentManager().findFragmentByTag("EVENTS_FRAGMENT");
                         if (fe != null && fe.isVisible())
                             navigationView.setCheckedItem(R.id.nav_events);
-
+                        NoticeFragment fn = (NoticeFragment) getSupportFragmentManager().findFragmentByTag("NOTICE_FRAGMENT");
+                        if (fn != null && fn.isVisible())
+                            navigationView.setCheckedItem(R.id.nav_notice);
                         //TODO: For each fragment do the same
                     }
                 });

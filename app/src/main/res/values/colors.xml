@@ -1,83 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/purpleDark_theme</color>
-    <color name="colorPrimaryDark">@color/purpleDark_theme_d2</color>
-    <color name="colorAccent">@color/purpleDark_theme_accent</color>
-
     <!-- color shades snorkelBlue -->
-    <color name="snorkelBlue_theme">#034f84</color>
-    <color name="snorkelBlue_theme_l5">#e9f5ff</color>
-    <color name="snorkelBlue_theme_l4">#b5dffd</color>
-    <color name="snorkelBlue_theme_l3">#6bc0fc</color>
-    <color name="snorkelBlue_theme_l2">#21a0fa</color>
-    <color name="snorkelBlue_theme_l1">#0479cc</color>
-    <color name="snorkelBlue_theme_d1">#024575</color>
-    <color name="snorkelBlue_theme_d2">#023e68</color>
-    <color name="snorkelBlue_theme_d3">#02365b</color>
-    <color name="snorkelBlue_theme_d4">#022e4e</color>
-    <color name="snorkelBlue_theme_d5">#012641</color>
-    <color name="snorkelBlue_theme_accent">#4CAF50</color>
+    <color name="snorkelBluePrimary">#034f84</color>
+    <color name="snorkelBluePrimaryDark">#023e68</color>
+    <color name="snorkelBlueAccent">#4CAF50</color>
+
+    <!-- color shades lushMedow -->
+    <color name="lushMedowPrimary">#006e51</color>
+    <color name="lushMedowPrimaryDark">#005a42</color>
+    <color name="lushMedowAccent">#ff9800</color>
+    <color name="lushMedowDarkest">#003829</color>
 
     <!-- color shades purpleDark -->
-    <color name="purpleDark_theme">#322332</color>
-    <color name="purpleDark_theme_l5">#f5f0f5</color>
-    <color name="purpleDark_theme_l4">#dccddc</color>
-    <color name="purpleDark_theme_l3">#ba9bba</color>
-    <color name="purpleDark_theme_l2">#976997</color>
-    <color name="purpleDark_theme_l1">#654665</color>
-    <color name="purpleDark_theme_d1">#2e202e</color>
-    <color name="purpleDark_theme_d2">#291c29</color>
-    <color name="purpleDark_theme_d3">#241924</color>
-    <color name="purpleDark_theme_d4">#1f151f</color>
-    <color name="purpleDark_theme_d5">#1a121a</color>
-    <color name="purpleDark_theme_accent">#de6262</color>
-
-    <!-- color shades darkPink -->
-    <color name="darkPink_theme">#d85d7e</color>
-    <color name="darkPink_theme_l5">#fdf5f7</color>
-    <color name="darkPink_theme_l4">#f7dfe5</color>
-    <color name="darkPink_theme_l3">#efbfcc</color>
-    <color name="darkPink_theme_l2">#e89fb2</color>
-    <color name="darkPink_theme_l1">#e07f99</color>
-    <color name="darkPink_theme_d1">#d2466b</color>
-    <color name="darkPink_theme_d2">#c83159</color>
-    <color name="darkPink_theme_d3">#af2a4e</color>
-    <color name="darkPink_theme_d4">#962443</color>
-    <color name="darkPink_theme_d5">#7d1e38</color>
-    <color name="darkPink_theme_accent">#8290AF</color>
+    <color name="purpleDarkPrimary">#322332</color>
+    <color name="purpleDarkPrimaryDark">#291c29</color>
+    <color name="purpleDarkAccent">#de6262</color>
+    <color name="purpleDarkDarkest">#1a121a</color>
 
     <!-- color shades deepPurple -->
-    <color name="deepPurple_theme">#420360</color>
-    <color name="deepPurple_theme_l5">#f7e7fe</color>
-    <color name="deepPurple_theme_l4">#e4affd</color>
-    <color name="deepPurple_theme_l3">#c95ffa</color>
-    <color name="deepPurple_theme_l2">#ae0ff8</color>
-    <color name="deepPurple_theme_l1">#7905ae</color>
-    <color name="deepPurple_theme_d1">#3b0355</color>
-    <color name="deepPurple_theme_d2">#34024b</color>
-    <color name="deepPurple_theme_d3">#2e0242</color>
-    <color name="deepPurple_theme_d4">#270238</color>
-    <color name="deepPurple_theme_d5">#21012f</color>
-    <color name="deepPurple_theme_accent">#FFC107</color>
+    <color name="deepPurplePrimary">#420360</color>
+    <color name="deepPurplePrimaryDark">#34024b</color>
+    <color name="deepPurpleAccent">#FFC107</color>
 
     <!-- color shades darkGray -->
-    <color name="darkGray_theme">#333333</color>
-    <color name="darkGray_theme_l5">#f3f3f3</color>
-    <color name="darkGray_theme_l4">#d6d6d6</color>
-    <color name="darkGray_theme_l3">#adadad</color>
-    <color name="darkGray_theme_l2">#858585</color>
-    <color name="darkGray_theme_l1">#5c5c5c</color>
-    <color name="darkGray_theme_d1">#2e2e2e</color>
-    <color name="darkGray_theme_d2">#292929</color>
-    <color name="darkGray_theme_d3">#242424</color>
-    <color name="darkGray_theme_d4">#1f1f1f</color>
-    <color name="darkGray_theme_d5">#1a1a1a</color>
-    <color name="darkGray_theme_accent">#ffffff</color>
+    <color name="darkGrayPrimary">#333333</color>
+    <color name="darkGrayPrimaryDark">#292929</color>
+    <color name="darkGrayAccent">#26a69a</color>
+    <color name="darkGrayDarkest">#1a1a1a</color>
 
-    <!-- Other colors for layout -->
-    <color name="divider">#DCDCDC</color>
-    <color name="layout_background">#DFDFDF</color>
-    <color name="dark_grey">#969696</color>
-    <color name="hintTextColor">#717171</color>
-    <color name="grayText">#616161</color>
+    <!-- Other theme items for Light theme -->
+    <color name="primaryTextLight">#000000</color>
+    <color name="secondaryTextLight">#616161</color>
+    <color name="hintTextLight">#717171</color>
+    <color name="dividerLight">#DCDCDC</color>
+    <color name="drawableTintLight">#848484</color>
+    <color name="layoutBackgroundLight">#DFDFDF</color>
+
+    <!-- Other theme items for dark theme -->
+    <color name="primaryTextDark">#cacaca</color>
+    <color name="secondaryTextDark">#969696</color>
+    <color name="hintTextDark">#717171</color>
+    <color name="dividerDark">#424242</color>
+    <color name="drawableTintDark">#ffffff</color>
+    <color name="layoutBackgroundDark">#000000</color>
 </resources>
