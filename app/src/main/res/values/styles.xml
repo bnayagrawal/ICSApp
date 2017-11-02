@@ -44,6 +44,7 @@
         <item name="contentHolderBackground">@color/darkGrayDarkest</item>
         <item name="cardBackground">@color/darkGrayPrimaryDark</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <!-- lushMedow Theme [Dark with no action bar] -->

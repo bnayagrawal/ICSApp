@@ -22,17 +22,26 @@
 
     <!-- TODO: HERE I SUPPOSED TO BE INCLUDING A LAYOUT WHICH SHOULD HOLD THE LAYOUT BELOW -->
 
-    <ScrollView
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipeRefreshNotice"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/layoutBackground">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="?attr/contentHolderBackground">
 
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+            <!-- TODO: Update blank fragment layout -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_notice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

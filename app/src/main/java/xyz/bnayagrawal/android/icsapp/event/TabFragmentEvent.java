@@ -90,7 +90,6 @@ public class TabFragmentEvent extends Fragment {
         ed.add(new EventData("Freshers Party",default_image,smalDec[2],Calendar.getInstance().getTime(),16,12,Calendar.getInstance().getTime(),"Padubidri"));
 
         adapter = new EventRecyclerAdapter(getActivity(),ed);
-        //new EventDataInitializer().execute(ed);
         recyclerView.setAdapter(adapter);
 
         return view;

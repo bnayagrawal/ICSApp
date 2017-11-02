@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class EventData {
     private String title;
-    private String image; //currently the image resource will be used, so int. later change to string for storing url.
+    private String image;
     private String description;
     private Date notification_date;
     private int peoples_interested;

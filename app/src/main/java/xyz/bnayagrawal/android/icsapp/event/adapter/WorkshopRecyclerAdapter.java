@@ -33,6 +33,7 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
     private Context context;
 
     ArrayList<EventData> ed;
+    private int lastPosition = -1;
 
     public WorkshopRecyclerAdapter(Context context, ArrayList<EventData> ed) {
         this.context = context;
@@ -99,6 +100,14 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
                 Toast.makeText(context,"Failed to load image!",Toast.LENGTH_SHORT).show();
             }
         });
+
+        // If the bound view wasn't previously displayed on screen, it's animated
+        /*if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_out_right);
+            viewHolder.card.startAnimation(animation);
+            lastPosition = position;
+        }*/
     }
 
     @Override
@@ -107,14 +116,14 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView itemDetail;
-        public TextView interested;
-        public TextView going;
-        public TextView dates;
-        public TextView view;
-        public ProgressBar imageLoadProgress;
+        private ImageView itemImage;
+        private TextView itemTitle;
+        private TextView itemDetail;
+        private TextView interested;
+        private TextView going;
+        private TextView dates;
+        private TextView view;
+        private ProgressBar imageLoadProgress;
         public View card;
 
         public ViewHolder(View itemView) {

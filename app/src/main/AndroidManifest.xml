@@ -29,7 +29,8 @@
             android:name=".event.EventDetailActivity"
             android:theme="@style/lushMedow" />
         <activity
-            android:name=".event.EventSearchResultActivity">
+            android:name=".event.EventSearchResultActivity"
+            android:theme="@style/lushMedow">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

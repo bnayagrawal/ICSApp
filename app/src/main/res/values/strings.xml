@@ -39,7 +39,7 @@
     <!-- Logout -->
     <string name="action_logout_title">Confirm logout</string>
     <string name="action_logout_content">Are you sure you want to logout?</string>
-    <string name="action_logout_cancel">Cancle</string>
+    <string name="action_logout_cancel">Cancel</string>
     <string name="action_logout_logout">Logout</string>
 
     <!-- URL -->
@@ -70,6 +70,8 @@
 
     <string name="pref_group_network_usage">Network usage</string>
 
+    <!-- Notice card template -->
+    <string name="notice_card_contains_attachment">Contains Attachment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import jp.wasabeef.recyclerview.animators.ScaleInTopAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import xyz.bnayagrawal.android.icsapp.*;
 import xyz.bnayagrawal.android.icsapp.event.EventData;
 import xyz.bnayagrawal.android.icsapp.event.EventDetailActivity;
@@ -35,7 +38,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     // Allows to remember the last item shown on screen
     private int lastPosition = -1;
 
-    // Dummy data
     List<EventData> ed;
 
     //public constructor to get the activity context and event data.
@@ -67,6 +69,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         viewHolder.itemTitle.setText(eds.getTitle());
         viewHolder.itemDetail.setText(shortDesc.trim() + "...");
+        //TODO: if date is less than 24 hour or less than a month then dont show actual date
         viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getNotification_date()));
         viewHolder.interested.setText(eds.getPeoples_interested() + " Intersted");
         viewHolder.going.setText(eds.getPeoples_going() + " Going");
@@ -108,6 +111,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                 Toast.makeText(context,"Failed to load image!",Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Item add animation
+        /*if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            viewHolder.card.startAnimation(animation);
+            lastPosition = position;
+        }*/
     }
 
     @Override
@@ -115,32 +126,17 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return ed.size();
     }
 
-    /**
-     * Here is the key method to apply the animation (FROM STACK OVERFLOW)
-     * This below method can be used to animate child views present inside cardView(list item).
-     */
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView itemDetail;
-        public TextView interested;
-        public TextView going;
-        public TextView dates;
+        private ImageView itemImage;
+        private TextView itemTitle;
+        private TextView itemDetail;
+        private TextView interested;
+        private TextView going;
+        private TextView dates;
         public TextView view;
-        public ProgressBar imageLoadProgress;
+        private ProgressBar imageLoadProgress;
         public RecyclerView.LayoutParams lp;
-        public View card;
+        private View card;
 
         public ViewHolder(View itemView) {
             super(itemView);

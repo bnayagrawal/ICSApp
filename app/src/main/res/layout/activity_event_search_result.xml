@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,4 +7,37 @@
     android:background="?attr/layoutBackground"
     tools:context="xyz.bnayagrawal.android.icsapp.event.EventSearchResultActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/search_event_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:elevation="3dp"
+            app:title="Search Event">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_event_searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="-16dp"
+                android:paddingStart="-16dp"
+                android:queryHint="Search event..."
+                app:queryHint="Search event...">
+
+            </android.support.v7.widget.SearchView>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- TODO: HERE I SUPPOSED TO BE INCLUDING A LAYOUT WHICH SHOULD HOLD THE LAYOUT BELOW -->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

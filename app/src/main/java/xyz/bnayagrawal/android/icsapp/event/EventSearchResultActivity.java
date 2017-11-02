@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,11 +24,18 @@ public class EventSearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_search_result);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.search_event_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SearchView searchView = (SearchView) findViewById(R.id.search_event_searchView);
+        searchView.setIconified(false);
+        searchView.clearFocus();
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query_string = intent.getStringExtra(SearchManager.QUERY);
+            searchView.setQuery(query_string, false);
             //Perform search
         }
     }
@@ -42,17 +50,5 @@ public class EventSearchResultActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.event_search_menu, menu);
-
-        SearchView searchView = (SearchView) menu.findItem(R.id.event_search).getActionView();
-        searchView.setIconified(false);
-        searchView.setQuery(query_string, false);
-        searchView.clearFocus();
-
-        return true;
-    }
 }
 
