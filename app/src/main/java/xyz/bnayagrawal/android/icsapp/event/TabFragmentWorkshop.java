@@ -1,6 +1,7 @@
 package xyz.bnayagrawal.android.icsapp.event;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,27 +14,45 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import xyz.bnayagrawal.android.icsapp.R;
 import xyz.bnayagrawal.android.icsapp.event.adapter.WorkshopRecyclerAdapter;
+import xyz.bnayagrawal.android.icsapp.internet.VolleyGet;
+import xyz.bnayagrawal.android.icsapp.internet.iVolleyCallback;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabFragmentWorkshop extends Fragment {
+public class TabFragmentWorkshop extends Fragment implements iVolleyCallback {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private SwipeRefreshLayout SwipeRefreshWorkshops;
-    private ArrayList<EventData> ed;
+    private LinearLayout eventLoading;
+
+    private ArrayList<EventData> events;
+    private String token,url;
+    private String default_image;
+    private VolleyGet volleyGet;
 
     public TabFragmentWorkshop() {
         // Required empty public constructor
@@ -47,37 +66,12 @@ public class TabFragmentWorkshop extends Fragment {
         //Toolbar settings
         setHasOptionsMenu(true);
 
-        //initialize swipe refresh function
-        SwipeRefreshWorkshops = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshEvents);
-        SwipeRefreshWorkshops.setColorSchemeColors(Color.RED,Color.GREEN,Color.BLUE);
-
-        SwipeRefreshWorkshops.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                SwipeRefreshWorkshops.setRefreshing(true);
-                // TODO: refreshing while fetching the data
-                // currently adds dummy data
-                ed.remove(0);
-                adapter.notifyItemRemoved(0);
-                ed.add(0,new EventData("Fakathon","","blablablablba",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
-                adapter.notifyItemInserted(0);
-                SwipeRefreshWorkshops.setRefreshing(false);
-            }
-        });
-
         //Initializing the RecyclerView Component
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_events);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        //Dummy data
-        ed = new ArrayList<>();
-        String default_image = String.valueOf(R.drawable.image_event_default);
-        String desc = "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ";
-        ed.add(new EventData("Android",default_image,"blablablabla", Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
-        ed.add(new EventData("Firebase",default_image,"blablablabla",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
-
-        adapter = new WorkshopRecyclerAdapter(getActivity(),ed);
+        eventLoading = (LinearLayout) view.findViewById(R.id.event_loading);
 
         //custom recycler item animation by wasabeef(github)
         SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
@@ -85,8 +79,29 @@ public class TabFragmentWorkshop extends Fragment {
         animator.setAddDuration(500);
         animator.setRemoveDuration(500);
         recyclerView.setItemAnimator(animator);
+
+        //init var
+        events = new ArrayList<>();
+        token = getActivity().getSharedPreferences(getString(R.string.SP_USER_FILE), Context.MODE_PRIVATE).getString("USER_JWT_TOKEN",null);
+        url = getString(R.string.url_request_event_data);
+        default_image = String.valueOf(R.drawable.image_event_default);
+        volleyGet = new VolleyGet(this,getActivity(),url,token);
+
+        adapter = new WorkshopRecyclerAdapter(getActivity(),events);
         recyclerView.setAdapter(adapter);
 
+        //initialize swipe refresh function
+        SwipeRefreshWorkshops = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshEvents);
+
+        SwipeRefreshWorkshops.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                SwipeRefreshWorkshops.setRefreshing(true);
+                volleyGet.fetchData();
+            }
+        });
+
+        volleyGet.fetchData();
         return view;
     }
 
@@ -120,5 +135,25 @@ public class TabFragmentWorkshop extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //custom volley callback methods
+    public void onResponseReceived(String response) {
+
+    }
+
+    public void onResponseError(String message) {
+        //dummy data
+        String[] smalDec = {
+                "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ",
+                "Teachers' Day is a special day for the appreciation of teachers, and may include celebrations to honor them for their special contributions in a particular field area, or the community in general.",
+                "The Freshers' Party was a night filled with talent, music, excitement and enthusiasm. Every year on Freshers' Party a boy and a girl from each stream is nominated for the prestigious title of Mr. & Ms. Fresher and for that they have to go through 3 rounds of different competitions."
+        };
+
+        eventLoading.setVisibility(View.GONE);
+        SwipeRefreshWorkshops.setRefreshing(false);
+        events.add(new EventData("Android",default_image,"blablablabla", Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
+        events.add(new EventData("Firebase",default_image,"blablablabla",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
+        adapter.notifyDataSetChanged();
     }
 }
