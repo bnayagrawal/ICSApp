@@ -44,7 +44,7 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        NoticeData noticeData = nd.get(position);
+        final NoticeData noticeData = nd.get(position);
         viewHolder.notice_title.setText(noticeData.getTitle());
 
         //limit 100 words for short description to show
@@ -62,6 +62,16 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
 
         //TODO: if date is less than 24 hour or less than a month then dont show actual date
         viewHolder.notice_time.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(noticeData.getCreated_at()));
+        viewHolder.notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,NoticeDetailActivity.class);
+                intent.putExtra("title",noticeData.getTitle());
+                intent.putExtra("text",noticeData.getText());
+                intent.putExtra("created_at",noticeData.getCreated_at());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -74,6 +84,7 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
         private TextView notice_content;
         private TextView notice_time;
         private LinearLayout notice_attachment;
+        private View notice;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,6 +92,7 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
             notice_content = itemView.findViewById(R.id.notice_card_content);
             notice_time = itemView.findViewById(R.id.notice_card_time);
             notice_attachment = itemView.findViewById(R.id.notice_card_attachment);
+            notice = itemView;
 
             //add onClick listener to view
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -50,6 +50,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/event_detail_app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_mark_event"/>
+        android:tint="@android:color/white"
+        app:srcCompat="@drawable/ic_event_note_black_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
