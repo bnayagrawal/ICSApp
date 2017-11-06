@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,19 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import xyz.bnayagrawal.android.icsapp.MainActivity;
 import xyz.bnayagrawal.android.icsapp.R;
+import xyz.bnayagrawal.android.icsapp.event.EventData;
 import xyz.bnayagrawal.android.icsapp.internet.VolleyGet;
 import xyz.bnayagrawal.android.icsapp.internet.iVolleyCallback;
 
@@ -75,7 +83,7 @@ public class NoticeFragment extends Fragment implements iVolleyCallback {
             }
         });
 
-        volleyGet.fetchData();
+        setRetainInstance(true);
         return view;
     }
 
@@ -83,6 +91,8 @@ public class NoticeFragment extends Fragment implements iVolleyCallback {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).setToolbar(R.id.notice_toolbar);
+        SwipeRefreshNotice.setEnabled(false);
+        volleyGet.fetchData();
     }
 
     @Override
@@ -92,24 +102,79 @@ public class NoticeFragment extends Fragment implements iVolleyCallback {
 
     //custom volley callback methods
     public void onResponseReceived(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            String status = jsonObject.getString("status");
+            if(status.equals("error")){
+                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                clearNotices();
+                JSONObject jData = jsonObject.getJSONObject("data");
+                JSONArray jNotices = jData.getJSONArray("notices");
 
+                int id;
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                String title,text,created_at,updated_at;
+
+                JSONArray jObjectArray;
+                JSONObject jNotice,jObject;
+
+                HashMap<String,String> users;
+
+                for(int i=0; i < jNotices.length();i++){
+                    jNotice = jNotices.getJSONObject(i);
+                    id = jNotice.getInt("id");
+                    title= jNotice.getString("title");
+                    text = jNotice.getString("text");
+                    created_at = jNotice.getString("createdAt");
+                    updated_at = jNotice.getString("updatedAt");
+
+                    jObjectArray = jNotice.getJSONArray("read");
+                    users = new HashMap<>(jObjectArray.length());
+                    for(int j=0; j < jObjectArray.length();j++) {
+                        jObject = jObjectArray.getJSONObject(j);
+                        users.put("id",jObject.getString("id"));
+                        users.put("first_name",jObject.getString("firstName"));
+                        users.put("last_name",jObject.getString("lastName"));
+                        users.put("username",jObject.getString("username"));
+                        users.put("email",jObject.getString("email"));
+                        users.put("created_at",jObject.getString("createdAt"));
+                        users.put("updated_at",jObject.getString("updatedAt"));
+                    }
+
+                    notices.add(new NoticeData(
+                            id,title,text,
+                            dateFormat.parse(created_at),
+                            dateFormat.parse(updated_at),
+                            users));
+                    adapter.notifyItemInserted(notices.size()-1);
+                }
+            }
+        }
+        catch (Exception ex) {
+            Toast.makeText(getActivity(),"Error parsing data!",Toast.LENGTH_SHORT).show();
+        }
+        finally {
+            noticeLoading.setVisibility(View.GONE);
+            SwipeRefreshNotice.setEnabled(true);
+            SwipeRefreshNotice.setRefreshing(false);
+        }
     }
 
     public void onResponseError(String message) {
         //dummy data
-        String[] smalDec = {
-                "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ",
-                "Teachers' Day is a special day for the appreciation of teachers, and may include celebrations to honor them for their special contributions in a particular field area, or the community in general.",
-                "The Freshers' Party was a night filled with talent, music, excitement and enthusiasm. Every year on Freshers' Party a boy and a girl from each stream is nominated for the prestigious title of Mr. & Ms. Fresher and for that they have to go through 3 rounds of different competitions."
-        };
-
+        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
         noticeLoading.setVisibility(View.GONE);
         SwipeRefreshNotice.setRefreshing(false);
-        notices.add(0,new NoticeData("Time table for semester exams", smalDec[0], Calendar.getInstance().getTime(), true, null));
-        adapter.notifyItemInserted(0);
-        notices.add(0,new NoticeData("Feedback on faculty", smalDec[1], Calendar.getInstance().getTime(), false, null));
-        adapter.notifyItemInserted(0);
-        notices.add(0,new NoticeData("Ek hafte ke liye college chutti", smalDec[2], Calendar.getInstance().getTime(), false, null));
-        adapter.notifyItemInserted(0);
+        SwipeRefreshNotice.setEnabled(true);
+    }
+
+    public void clearNotices() {
+        int size = notices.size();
+        if (size > 0) {
+            notices.clear();
+            adapter.notifyItemRangeRemoved(0, size);
+        }
     }
 }

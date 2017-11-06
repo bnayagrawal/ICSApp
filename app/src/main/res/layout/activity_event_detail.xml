@@ -22,9 +22,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+                android:tint="#55000000"
                 android:id="@+id/event_detail_backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="wrap_content"
+                android:minHeight="260dp"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"/>
@@ -48,6 +50,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/event_detail_app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_mark_event" />
+        app:srcCompat="@drawable/ic_mark_event"/>
 
 </android.support.design.widget.CoordinatorLayout>

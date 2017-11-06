@@ -48,7 +48,7 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
         viewHolder.notice_title.setText(noticeData.getTitle());
 
         //limit 100 words for short description to show
-        StringTokenizer st = new StringTokenizer(noticeData.getDescription()," ");
+        StringTokenizer st = new StringTokenizer(noticeData.getText()," ");
         String shortDesc = "";
         for(int i = 0; i < st.countTokens(); i++)
             if(i < 100)
@@ -57,11 +57,11 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
         shortDesc = shortDesc.trim() + "...";
         viewHolder.notice_content.setText(shortDesc);
         //if doesn't contain attachment hide
-        if(!noticeData.hasAttachment())
-            viewHolder.notice_attachment.setVisibility(View.INVISIBLE);
+        /*if(!noticeData.hasAttachment())
+            viewHolder.notice_attachment.setVisibility(View.INVISIBLE);*/
 
         //TODO: if date is less than 24 hour or less than a month then dont show actual date
-        viewHolder.notice_time.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(noticeData.getDate()));
+        viewHolder.notice_time.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(noticeData.getCreated_at()));
     }
 
     @Override

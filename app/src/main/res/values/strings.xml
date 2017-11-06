@@ -43,9 +43,10 @@
     <string name="action_logout_logout">Logout</string>
 
     <!-- URL -->
-    <string name="url_login">http://192.168.43.222:3000/login</string>
-    <string name="url_request_event_data">http://192.168.43.222:3000/event</string>
-    <string name="url_request_notice_data">http://192.168.43.222:3000/notice</string>
+    <string name="url_server_address">http://192.168.43.222:8080</string>
+    <string name="url_login">http://192.168.43.222:8080/login</string>
+    <string name="url_request_event_data">http://192.168.43.222:8080/events</string>
+    <string name="url_request_notice_data">http://192.168.43.222:8080/notices</string>
 
     <!-- Shared Preferences -->
     <string name="SP_USER_FILE">SP_USER_FILE</string>

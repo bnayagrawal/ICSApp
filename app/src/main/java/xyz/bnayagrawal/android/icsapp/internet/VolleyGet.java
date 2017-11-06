@@ -1,7 +1,6 @@
 package xyz.bnayagrawal.android.icsapp.internet;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,7 +33,8 @@ public class VolleyGet {
 
     public void fetchData() {
         if(token == null) {
-            volleyCallback.onResponseError("Null token received");
+            if(volleyCallback != null)
+                volleyCallback.onResponseError("Null token received");
             return;
         }
 
@@ -43,19 +43,22 @@ public class VolleyGet {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        volleyCallback.onResponseReceived(response);
+                        if(volleyCallback != null)
+                            volleyCallback.onResponseReceived(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error == null || error.networkResponse == null) {
-                    volleyCallback.onResponseError("Error fetching data! ");
+                    if(volleyCallback != null)
+                        volleyCallback.onResponseError("Error fetching data! ");
                     return;
                 }
 
                 final String statusCode = String.valueOf(error.networkResponse.statusCode);
                 try {
-                    volleyCallback.onResponseError(new String(error.networkResponse.data,"UTF-8"));
+                    if(volleyCallback != null)
+                        volleyCallback.onResponseError(new String(error.networkResponse.data,"UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     // exception
                 }
@@ -64,7 +67,7 @@ public class VolleyGet {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", "bearer " + token);
+                headers.put("Authorization", "Bearer " + token);
                 return headers;
             }
         };

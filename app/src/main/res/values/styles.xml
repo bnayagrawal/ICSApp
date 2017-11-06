@@ -15,7 +15,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <!-- darkPurple Theme [Light with no action bar] -->
+    <!-- darkPurple Theme -->
     <style name="darkPurple" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/purpleDarkPrimary</item>
         <item name="colorPrimaryDark">@color/purpleDarkPrimaryDark</item>
@@ -23,14 +23,14 @@
         <item name="primaryText">@color/primaryTextLight</item>
         <item name="secondaryText">@color/secondaryTextLight</item>
         <item name="hintText">@color/hintTextLight</item>
-        <item name="drawableTint">@color/drawableTintLight</item>
+        <item name="drawableTint">@color/drawableTintLight</item>"
         <item name="layoutBackground">@android:color/white</item>
         <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
         <item name="cardBackground">@android:color/white</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <!-- DarkGray Theme [Dark with no action bar] -->
+    <!-- DarkGray Theme -->
     <style name="DarkGray" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/darkGrayPrimary</item>
         <item name="colorPrimaryDark">@color/darkGrayPrimaryDark</item>
@@ -47,7 +47,7 @@
         <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
-    <!-- lushMedow Theme [Dark with no action bar] -->
+    <!-- lushMedow Theme -->
     <style name="lushMedow" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/lushMedowPrimary</item>
         <item name="colorPrimaryDark">@color/lushMedowPrimaryDark</item>
@@ -61,6 +61,39 @@
         <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
         <item name="cardBackground">@android:color/white</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <!-- snorkelBlue Theme -->
+    <style name="snorkelBlue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/snorkelBluePrimary</item>
+        <item name="colorPrimaryDark">@color/snorkelBluePrimaryDark</item>
+        <item name="colorAccent">@color/snorkelBlueAccent</item>
+        <item name="primaryText">@color/primaryTextLight</item>
+        <item name="secondaryText">@color/secondaryTextLight</item>
+        <item name="hintText">@color/hintTextLight</item>
+        <item name="drawableTint">@color/drawableTintLight</item>
+        <item name="divider">@color/dividerLight</item>
+        <item name="layoutBackground">@android:color/white</item>
+        <item name="contentHolderBackground">@color/layoutBackgroundLight</item>
+        <item name="cardBackground">@android:color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <!-- blueBlack Theme -->
+    <style name="blueBlack" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blueBlackPrimary</item>
+        <item name="colorPrimaryDark">@color/blueBlackPrimaryDark</item>
+        <item name="colorAccent">@color/blueBlackAccent</item>
+        <item name="primaryText">@color/primaryTextDark</item>
+        <item name="secondaryText">@color/secondaryTextDark</item>
+        <item name="hintText">@color/hintTextDark</item>
+        <item name="drawableTint">@color/drawableTintDark</item>
+        <item name="divider">@color/dividerDark</item>
+        <item name="layoutBackground">@android:color/black</item>
+        <item name="contentHolderBackground">@android:color/black</item>
+        <item name="cardBackground">@android:color/black</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
     </style>
 
     <!-- arrow button animation -->

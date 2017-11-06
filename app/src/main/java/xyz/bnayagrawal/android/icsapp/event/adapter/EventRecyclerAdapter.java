@@ -57,7 +57,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     //this method will be called automatically by recyclerview before showing the card(list item) to user, the passed viewholder object will be populated with data to display.
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        EventData eds = ed.get(position);
+        final EventData eds = ed.get(position);
 
         //limit 100 words for short description to show
         StringTokenizer st = new StringTokenizer(eds.getDescription()," ");
@@ -70,9 +70,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         viewHolder.itemTitle.setText(eds.getTitle());
         viewHolder.itemDetail.setText(shortDesc.trim() + "...");
         //TODO: if date is less than 24 hour or less than a month then dont show actual date
-        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getNotification_date()));
-        viewHolder.interested.setText(eds.getPeoples_interested() + " Intersted");
-        viewHolder.going.setText(eds.getPeoples_going() + " Going");
+        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getCreated_at()));
+        viewHolder.interested.setText(eds.getStarred().size() + " Interested");
+        viewHolder.going.setText(eds.getAttending().size() + " Attending");
 
         //if last card then set bottom margin
         if(position == ed.size() - 1) {
@@ -86,7 +86,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         //Picasso image loading and caching framework
         //TODO: Change to string for url.
-        Picasso.with(context).load(R.drawable.image_event_default).resize(640,420).centerCrop().into(viewHolder.itemImage,new Callback(){
+        Picasso.with(context).load(eds.getImageUrl()).into(viewHolder.itemImage,new Callback(){
             @Override
             public void onSuccess() {
                 //hide the progress bar
@@ -102,16 +102,34 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             public void onError() {
                 viewHolder.imageLoadProgress.setVisibility(View.GONE);
                 viewHolder.itemImage.setVisibility(View.VISIBLE);
-                Picasso.with(context).load(R.drawable.image_event_default).resize(640,420).centerCrop().into(viewHolder.itemImage);
+                Picasso.with(context).load(R.drawable.image_event_default).into(viewHolder.itemImage);
 
                 //animation using xml resource
                 Animation image_scale = AnimationUtils.loadAnimation(context, R.anim.image_scale_anim);
                 viewHolder.itemImage.startAnimation(image_scale);
 
-                Toast.makeText(context,"Failed to load image!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Failed to load image !",Toast.LENGTH_SHORT).show();
             }
         });
 
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,EventDetailActivity.class);
+                intent.putExtra("id",eds.getId());
+                intent.putExtra("title",eds.getTitle());
+                intent.putExtra("description",eds.getDescription());
+                intent.putExtra("venue",eds.getVenue());
+                intent.putExtra("phone",eds.getPhone());
+                intent.putExtra("created_at",eds.getCreated_at());
+                intent.putExtra("start_time",eds.getStart_time());
+                intent.putExtra("end_time",eds.getEnd_time());
+                intent.putExtra("peoples_interested",eds.getStarred().size());
+                intent.putExtra("peoples going",eds.getAttending().size());
+                intent.putExtra("image_url",eds.getImageUrl());
+                context.startActivity(intent);
+            }
+        });
         // Item add animation
         /*if (position > lastPosition)
         {
@@ -135,7 +153,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView dates;
         public TextView view;
         private ProgressBar imageLoadProgress;
-        public RecyclerView.LayoutParams lp;
         private View card;
 
         public ViewHolder(View itemView) {
@@ -149,16 +166,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             view = itemView.findViewById(R.id.textViewView);
             imageLoadProgress = itemView.findViewById(R.id.imageLoadProgress);
             card = itemView;
-
-            //add onClick listener to view
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO: open event detail activity
-                    Intent intent = new Intent(context,EventDetailActivity.class);
-                    context.startActivity(intent);
-                }
-            });
         }
     }
 }

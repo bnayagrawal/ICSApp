@@ -252,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_dashboard);
-        navigationView.setItemIconTintList(null);
 
         /* SET NAV_HEADER_BACKGROUND_COLOR */
         if (primaryColor != -1)

@@ -1,30 +1,32 @@
 package xyz.bnayagrawal.android.icsapp.notice;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by binay on 11/2/2017.
  */
 
 public class NoticeData {
+    private int id;
     private String title;
-    private Date date;
-    private String description;
-    private String attachment_url;
-    private boolean has_attachment;
+    private String text;
+    private Date created_at,updated_at;
+    private HashMap<String,String> users_read;
 
-    public NoticeData(String title, String description, Date date, boolean has_attachment, String attachment_url) {
+    public NoticeData(int id, String title, String text, Date created_at, Date updated_at,HashMap<String,String> users_read) {
+        this.id = id;
         this.title = title;
-        this.date = date;
-        this.description = description;
-        this.has_attachment = has_attachment;
-        this.attachment_url= attachment_url;
+        this.text = text;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.users_read = users_read;
     }
 
     //getter methods
     public String getTitle() {return this.title;}
-    public String getDescription() {return this.description;}
-    public Date getDate() {return this.date;}
-    public boolean hasAttachment() {return this.has_attachment;}
-    public String getAttachmentUrl() {return this.attachment_url;}
+    public String getText() {return this.text;}
+    public Date getCreated_at() {return this.created_at;}
+    public Date getUpdated_at() {return this.updated_at;}
+    public HashMap<String,String> getUsers_read() {return this.users_read;}
 }

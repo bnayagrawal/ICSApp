@@ -60,9 +60,9 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
 
         viewHolder.itemTitle.setText(eds.getTitle());
         viewHolder.itemDetail.setText(shortDesc + "...");
-        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getNotification_date()));
-        viewHolder.interested.setText(eds.getPeoples_interested() + " Intersted");
-        viewHolder.going.setText(eds.getPeoples_going() + " Going");
+        viewHolder.dates.setText((new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")).format(eds.getCreated_at()));
+        viewHolder.interested.setText(eds.getStarred().size() + " Intersted");
+        viewHolder.going.setText(eds.getAttending().size() + " Going");
 
         //if last card then set bottom margin
         if(position == ed.size() - 1) {
@@ -75,7 +75,7 @@ public class WorkshopRecyclerAdapter extends RecyclerView.Adapter<WorkshopRecycl
         viewHolder.itemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         //Picasso image loading and caching framework
-        Picasso.with(context).load(R.drawable.image_event_default).resize(640,420).centerCrop().into(viewHolder.itemImage,new Callback(){
+        Picasso.with(context).load(eds.getImageUrl()).resize(640,420).centerCrop().into(viewHolder.itemImage,new Callback(){
             @Override
             public void onSuccess() {
                 //hide the progress bar

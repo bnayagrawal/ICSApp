@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/lushMedow">
+            android:theme="@style/snorkelBlue">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,13 +24,13 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/lushMedow" />
+            android:theme="@style/snorkelBlue" />
         <activity
             android:name=".event.EventDetailActivity"
-            android:theme="@style/lushMedow" />
+            android:theme="@style/snorkelBlue" />
         <activity
             android:name=".event.EventSearchResultActivity"
-            android:theme="@style/lushMedow">
+            android:theme="@style/snorkelBlue">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

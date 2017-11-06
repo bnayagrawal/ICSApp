@@ -101,18 +101,20 @@ public class TabFragmentWorkshop extends Fragment implements iVolleyCallback {
             }
         });
 
-        volleyGet.fetchData();
+        setRetainInstance(true);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+        SwipeRefreshWorkshops.setEnabled(false);
+        volleyGet.fetchData();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(getContext(),"Menu click wtab ",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Menu click wtab ",Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.event_filter_show_all:
                 if (item.isChecked())
@@ -139,12 +141,12 @@ public class TabFragmentWorkshop extends Fragment implements iVolleyCallback {
 
     //custom volley callback methods
     public void onResponseReceived(String response) {
-
+        SwipeRefreshWorkshops.setEnabled(true);
     }
 
     public void onResponseError(String message) {
         //dummy data
-        String[] smalDec = {
+        /*String[] smalDec = {
                 "Celebrating World Ethnic Day. 'Ethnic diversity adds richness to a society.' This sentence comes to life with the celebrations of World Ethnic Day. ",
                 "Teachers' Day is a special day for the appreciation of teachers, and may include celebrations to honor them for their special contributions in a particular field area, or the community in general.",
                 "The Freshers' Party was a night filled with talent, music, excitement and enthusiasm. Every year on Freshers' Party a boy and a girl from each stream is nominated for the prestigious title of Mr. & Ms. Fresher and for that they have to go through 3 rounds of different competitions."
@@ -154,6 +156,7 @@ public class TabFragmentWorkshop extends Fragment implements iVolleyCallback {
         SwipeRefreshWorkshops.setRefreshing(false);
         events.add(new EventData("Android",default_image,"blablablabla", Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
         events.add(new EventData("Firebase",default_image,"blablablabla",Calendar.getInstance().getTime(),56,18,Calendar.getInstance().getTime(),"Karkala"));
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
+        SwipeRefreshWorkshops.setEnabled(true);
     }
 }

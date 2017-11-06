@@ -28,6 +28,11 @@
     <color name="darkGrayAccent">#26a69a</color>
     <color name="darkGrayDarkest">#1a1a1a</color>
 
+    <!-- blueblack -->
+    <color name="blueBlackPrimary">#4286F5</color>
+    <color name="blueBlackPrimaryDark">#346AC2</color>
+    <color name="blueBlackAccent">#4286F5</color>
+
     <!-- Other theme items for Light theme -->
     <color name="primaryTextLight">#000000</color>
     <color name="secondaryTextLight">#616161</color>
