@@ -3,9 +3,9 @@ The ICS(Information Center for Students) App. This app is built for college stud
 <pre>
 This app features the following.
 
-  -> Notices
+  -> Notice Board
   -> Events & workshops
   -> Announcements
   -> News &  articles
-  -> Assignments
+  -> Placement
 </pre>
